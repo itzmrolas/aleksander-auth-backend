@@ -1,4 +1,4 @@
-import { verify } from 'otplib';
+import { authenticator } from 'otplib';
 
 const studioData = [
     {
@@ -64,9 +64,9 @@ export default async function handler(req, res) {
     }
 
     try {
-        const result = await verify({ token, secret });
+        const isValid = authenticator.check(token, secret);
 
-        if (result && result.valid) {
+        if (isValid) {
             return res.status(200).json({
                 success: true,
                 data: studioData
